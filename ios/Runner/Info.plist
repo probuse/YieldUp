@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App needs access to photo for diagnosis</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To capture diagnosis photo please grant camera access</string>
 </dict>
 </plist>
