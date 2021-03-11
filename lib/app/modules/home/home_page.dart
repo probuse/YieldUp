@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yieldup/app/modules/home/diagnoze/components/diagonoze_component.dart';
-import 'package:yieldup/app/modules/home/components/results_component.dart';
+import 'package:yieldup/app/modules/home/results/components/results_component.dart';
 
 class HomePage extends StatefulWidget {
   final int selectedIndex;

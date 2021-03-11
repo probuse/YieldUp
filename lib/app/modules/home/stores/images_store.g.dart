@@ -24,6 +24,21 @@ mixin _$ImagesStore on _ImagesStore, Store {
     });
   }
 
+  final _$resultAtom = Atom(name: '_ImagesStore.result');
+
+  @override
+  String get result {
+    _$resultAtom.reportRead();
+    return super.result;
+  }
+
+  @override
+  set result(String value) {
+    _$resultAtom.reportWrite(value, super.result, () {
+      super.result = value;
+    });
+  }
+
   final _$selectedImageAtom = Atom(name: '_ImagesStore.selectedImage');
 
   @override
@@ -42,17 +57,6 @@ mixin _$ImagesStore on _ImagesStore, Store {
   final _$_ImagesStoreActionController = ActionController(name: '_ImagesStore');
 
   @override
-  void setSelectedImage(File image) {
-    final _$actionInfo = _$_ImagesStoreActionController.startAction(
-        name: '_ImagesStore.setSelectedImage');
-    try {
-      return super.setSelectedImage(image);
-    } finally {
-      _$_ImagesStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void setError(String error) {
     final _$actionInfo = _$_ImagesStoreActionController.startAction(
         name: '_ImagesStore.setError');
@@ -64,9 +68,32 @@ mixin _$ImagesStore on _ImagesStore, Store {
   }
 
   @override
+  void setResult(String result) {
+    final _$actionInfo = _$_ImagesStoreActionController.startAction(
+        name: '_ImagesStore.setResult');
+    try {
+      return super.setResult(result);
+    } finally {
+      _$_ImagesStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setSelectedImage(File image) {
+    final _$actionInfo = _$_ImagesStoreActionController.startAction(
+        name: '_ImagesStore.setSelectedImage');
+    try {
+      return super.setSelectedImage(image);
+    } finally {
+      _$_ImagesStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 error: ${error},
+result: ${result},
 selectedImage: ${selectedImage}
     ''';
   }
