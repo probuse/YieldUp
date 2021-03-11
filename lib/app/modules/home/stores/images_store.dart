@@ -20,16 +20,24 @@ abstract class _ImagesStore with Store {
   String error;
 
   @observable
-  File selectedImage;
+  String result;
 
-  @action
-  void setSelectedImage(File image) {
-    this.selectedImage = image;
-  }
+  @observable
+  File selectedImage;
 
   @action
   void setError(String error) {
     this.error = error;
+  }
+
+  @action
+  void setResult(String result) {
+    this.result = result;
+  }
+
+  @action
+  void setSelectedImage(File image) {
+    this.selectedImage = image;
   }
 
   Future<void> getImage(ImageFrom imageFrom) async {
@@ -46,6 +54,7 @@ abstract class _ImagesStore with Store {
 
   Future processImage(File image) async {
     await Future.delayed(Duration(seconds: 10));
-    navigateToPage('/', arguments: 1);
+    setResult("sick leaf detected");
+    navigateToPageAndRemoveAllPreviousPages('/', arguments: 1);
   }
 }
