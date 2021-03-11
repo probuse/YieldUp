@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:yieldup/app/modules/home/services/image_picker_service_interface.dart';
 import 'package:yieldup/app/shared/global_variables.dart';
 import 'package:yieldup/app/shared/models/service_response.dart';
+import 'package:yieldup/app/shared/navigation.dart';
 part 'images_store.g.dart';
 
 class ImagesStore = _ImagesStore with _$ImagesStore;
@@ -37,6 +38,7 @@ abstract class _ImagesStore with Store {
     if (serviceResponse.success) {
       File image = serviceResponse.data as File;
       setSelectedImage(image);
+      await processImage(image);
     } else {
       setError(serviceResponse.message);
     }
@@ -44,6 +46,6 @@ abstract class _ImagesStore with Store {
 
   Future processImage(File image) async {
     await Future.delayed(Duration(seconds: 10));
-    Modular.to.pushNamed('/', arguments: 1);
+    navigateToPage('/', arguments: 1);
   }
 }

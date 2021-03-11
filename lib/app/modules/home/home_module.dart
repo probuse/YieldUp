@@ -15,6 +15,10 @@ class HomeModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter("/", child: (_, args) => HomePage(selectedIndex: args.data,)),
+        ModularRouter("/", child: (_, args) {
+          return HomePage(
+            selectedIndex: args.data ?? 0,
+          );
+        }),
       ];
 }

@@ -20,7 +20,6 @@ class _DiagonozeComponentState
       ),
       body: Observer(
         builder: (context) {
-          print("???????????? ${controller?.imagesStore?.selectedImage}");
           return Center(
             child: CustomButton(
               isActive: true,

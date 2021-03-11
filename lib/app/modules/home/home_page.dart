@@ -5,7 +5,9 @@ import 'package:yieldup/app/modules/home/components/results_component.dart';
 class HomePage extends StatefulWidget {
   final int selectedIndex;
 
-  const HomePage({Key key, this.selectedIndex = 0}) : super(key: key);
+  const HomePage({Key key, this.selectedIndex = 0})
+      : assert(selectedIndex != null),
+        super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -15,10 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    print(">>>>>>>>>>>>>>. i run");
-    _currentIndex = widget.selectedIndex;
     super.initState();
-    print("??????????????? i fail witjh ${widget.selectedIndex}");
+    _currentIndex = widget.selectedIndex;
   }
 
   @override
