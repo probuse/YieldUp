@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:yieldup/app/modules/home/diagnoze/components/diagonoze_component.dart';
+import 'package:yieldup/app/modules/home/home_controller.dart';
 import 'package:yieldup/app/modules/home/results/components/results_component.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,11 +15,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _homeController = Modular.get<HomeController>();
   int _currentIndex;
 
   @override
   void initState() {
     super.initState();
+    _homeController.imagesStore.loadModel();
     _currentIndex = widget.selectedIndex;
   }
 

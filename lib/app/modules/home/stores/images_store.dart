@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:yieldup/app/modules/home/services/image_picker_service_interface.dart';
+import 'package:yieldup/app/modules/home/services/tensor_flow_service_interface.dart';
 import 'package:yieldup/app/shared/global_variables.dart';
 import 'package:yieldup/app/shared/models/service_response.dart';
 import 'package:yieldup/app/shared/navigation.dart';
@@ -14,7 +15,8 @@ class ImagesStore = _ImagesStore with _$ImagesStore;
 
 abstract class _ImagesStore with Store {
   final IImagePickerService _imagePickerService;
-  _ImagesStore(this._imagePickerService);
+  final ITensorflowService _tensorflowService;
+  _ImagesStore(this._imagePickerService, this._tensorflowService);
 
   @observable
   String error;
@@ -40,6 +42,13 @@ abstract class _ImagesStore with Store {
     this.selectedImage = image;
   }
 
+  Future<void> loadModel() async {
+    ServiceResponse serviceResponse = await _tensorflowService.loadModel();
+    if (!serviceResponse.success) {
+      setError(serviceResponse.message);
+    }
+  }
+
   Future<void> getImage(ImageFrom imageFrom) async {
     ServiceResponse serviceResponse =
         await _imagePickerService.getImage(imageFrom);
@@ -53,8 +62,14 @@ abstract class _ImagesStore with Store {
   }
 
   Future processImage(File image) async {
-    await Future.delayed(Duration(seconds: 10));
-    setResult("sick leaf detected");
-    navigateToPageAndRemoveAllPreviousPages('/', arguments: 1);
+    ServiceResponse serviceResponse =
+        await _tensorflowService.classifyImage(image);
+    if (serviceResponse.success) {
+      
+      setResult("sick leaf detected");
+      navigateToPageAndRemoveAllPreviousPages('/', arguments: 1);
+    } else {
+      setError(serviceResponse.message);
+    }
   }
 }

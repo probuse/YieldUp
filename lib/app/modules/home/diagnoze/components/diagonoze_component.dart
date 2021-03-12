@@ -20,6 +20,10 @@ class _DiagonozeComponentState
       ),
       body: Observer(
         builder: (context) {
+          if (controller.imagesStore.error != null) {
+            print(
+                "????????????!!!!!! ${controller.imagesStore.error}");
+          }
           return Center(
             child: CustomButton(
               isActive: true,
