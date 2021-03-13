@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:yieldup/app/modules/home/services/image_picker_service_interface.dart';
 import 'package:yieldup/app/modules/home/services/tensor_flow_service_interface.dart';
 import 'package:yieldup/app/shared/global_variables.dart';
+import 'package:yieldup/app/shared/models/diagnosis_result.dart';
 import 'package:yieldup/app/shared/models/service_response.dart';
 import 'package:yieldup/app/shared/navigation.dart';
 part 'images_store.g.dart';
@@ -65,8 +66,9 @@ abstract class _ImagesStore with Store {
     ServiceResponse serviceResponse =
         await _tensorflowService.classifyImage(image);
     if (serviceResponse.success) {
-      
-      setResult("sick leaf detected");
+      print("********** diagnisi result is ${serviceResponse.data[0]}");
+      List<DiagnosisResult> diagnosisResults = List.from(serviceResponse.data);
+      setResult(diagnosisResults.first.label);
       navigateToPageAndRemoveAllPreviousPages('/', arguments: 1);
     } else {
       setError(serviceResponse.message);

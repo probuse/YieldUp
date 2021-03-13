@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:tflite/tflite.dart';
 import 'package:yieldup/app/modules/home/services/tensor_flow_service_interface.dart';
+import 'package:yieldup/app/shared/models/diagnosis_result.dart';
 import 'package:yieldup/app/shared/models/service_response.dart';
 
 class TensorflowService extends ITensorflowService {
@@ -17,8 +18,11 @@ class TensorflowService extends ITensorflowService {
           threshold: 0.2, // defaults to 0.1
           asynch: true // defaults to true
           );
-      print("?????????????????????????/>>>>>>>>>>. recognitions are ${recognitions}");
-      return ServiceResponse(success: true);
+      var diagnosisResults = recognitions
+          .map((recognition) => DiagnosisResult.fromJson(Map.castFrom(recognition)))
+          .toList();
+      diagnosisResults.sort((a, b) => b.confidence.compareTo(a.confidence));
+      return ServiceResponse(success: true, data: diagnosisResults);
     } catch (e) {
       if (e is PlatformException) {
         return ServiceResponse(success: false, message: e.message);
