@@ -27,13 +27,13 @@ mixin _$ImagesStore on _ImagesStore, Store {
   final _$resultAtom = Atom(name: '_ImagesStore.result');
 
   @override
-  String get result {
+  DiagnosisResult get result {
     _$resultAtom.reportRead();
     return super.result;
   }
 
   @override
-  set result(String value) {
+  set result(DiagnosisResult value) {
     _$resultAtom.reportWrite(value, super.result, () {
       super.result = value;
     });
@@ -68,7 +68,7 @@ mixin _$ImagesStore on _ImagesStore, Store {
   }
 
   @override
-  void setResult(String result) {
+  void setResult(DiagnosisResult result) {
     final _$actionInfo = _$_ImagesStoreActionController.startAction(
         name: '_ImagesStore.setResult');
     try {

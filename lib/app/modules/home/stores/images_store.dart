@@ -23,7 +23,7 @@ abstract class _ImagesStore with Store {
   String error;
 
   @observable
-  String result;
+  DiagnosisResult result;
 
   @observable
   File selectedImage;
@@ -34,7 +34,7 @@ abstract class _ImagesStore with Store {
   }
 
   @action
-  void setResult(String result) {
+  void setResult(DiagnosisResult result) {
     this.result = result;
   }
 
@@ -66,9 +66,8 @@ abstract class _ImagesStore with Store {
     ServiceResponse serviceResponse =
         await _tensorflowService.classifyImage(image);
     if (serviceResponse.success) {
-      print("********** diagnisi result is ${serviceResponse.data[0]}");
       List<DiagnosisResult> diagnosisResults = List.from(serviceResponse.data);
-      setResult(diagnosisResults.first.label);
+      setResult(diagnosisResults.first);
       navigateToPageAndRemoveAllPreviousPages('/', arguments: 1);
     } else {
       setError(serviceResponse.message);

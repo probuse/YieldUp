@@ -34,7 +34,21 @@ class _ResultsComponentState
           ),
           Expanded(
             flex: 1,
-            child: Center(child: Text("Results are ${controller.imagesStore.result}")),
+            child: controller.imagesStore.result == null
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "No results yet.\n Diagnoze to receive a result.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800, fontSize: 18.0),
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                        "${(controller.imagesStore.result.confidence * 100).toStringAsFixed(4)}% sure that the image is ${controller.imagesStore.result.label}")),
           ),
           Spacer(),
         ],

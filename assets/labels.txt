@@ -1,2 +1,3 @@
-0 Horse
-1 Human
+0 BeanRust
+1 AngularLeafSpot
+2 HealthyLeaf
