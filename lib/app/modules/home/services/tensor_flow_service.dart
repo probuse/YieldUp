@@ -19,7 +19,9 @@ class TensorflowService extends ITensorflowService {
           asynch: true // defaults to true
           );
       var diagnosisResults = recognitions
-          .map((recognition) => DiagnosisResult.fromJson(Map.castFrom(recognition)))
+          .map((recognition) {
+            return DiagnosisResult.fromJson(Map.castFrom(recognition));
+          })
           .toList();
       diagnosisResults.sort((a, b) => b.confidence.compareTo(a.confidence));
       return ServiceResponse(success: true, data: diagnosisResults);
